@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5年600万年薪计划</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fafafa;color:#1d1d1f;line-height:1.7}
+.hero{background:linear-gradient(135deg,#1d1d1f 0%,#2d2d2f 100%);color:#fff;padding:80px 20px;text-align:center}
+.hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;letter-spacing:-.02em;margin-bottom:16px}
+.hero p{font-size:1.2rem;opacity:.8;max-width:600px;margin:0 auto}
+.container{max-width:960px;margin:0 auto;padding:40px 20px}
+#content{background:#fff;border-radius:16px;padding:48px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+#content h2{margin-top:2em;padding-bottom:.3em;border-bottom:1px solid #e5e5e5}
+#content table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.9rem}
+#content th,#content td{padding:10px 12px;border:1px solid #e5e5e5;text-align:left}
+#content th{background:#f5f5f7;font-weight:600}
+#content a{color:#0066cc;text-decoration:none}
+#content a:hover{text-decoration:underline}
+#content code{background:#f0f0f2;padding:2px 6px;border-radius:4px;font-size:.9em}
+#content pre{background:#1d1d1f;color:#f5f5f7;padding:20px;border-radius:12px;overflow-x:auto;margin:1em 0}
+#content pre code{background:transparent;padding:0;color:inherit}
+#content blockquote{border-left:4px solid #0066cc;padding:8px 16px;margin:1em 0;background:#f5f5f7;border-radius:0 8px 8px 0}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:2em 0}
+.tier-card{padding:20px;border-radius:12px;border:1px solid #e5e5e5}
+.tier-card.t1{border-color:#ffd60a;background:#fffdf5}
+.tier-card.t2{border-color:#30d158;background:#f0fff4}
+.tier-card.t3{border-color:#64d2ff;background:#f0faff}
+.tier-card h3{font-size:1.1rem;margin-bottom:8px}
+footer{text-align:center;padding:40px 20px;color:#86868b;font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="hero">
+<h1>🚀 5年600万年薪计划</h1>
+<p>31条路径 × 3份文档 = 93个文件，覆盖AI时代所有可能的财富路径</p>
+</div>
+<div class="container">
+<div id="content"></div>
+</div>
+<footer>
+<p>GitHub: <a href="https://github.com/SunArthur86/5y-6m-plan">SunArthur86/5y-6m-plan</a> · 私有仓库 · 2026</p>
+</footer>
+<script>
+fetch('README.md')
+.then(r=>r.text())
+.then(t=>{document.getElementById('content').innerHTML=marked.parse(t)})
+.catch(()=>{document.getElementById('content').innerHTML='<h2>加载失败</h2><p>请直接查看 <a href="README.md">README.md</a></p>'})
+</script>
+</body>
+</html>
