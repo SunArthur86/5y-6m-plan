@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🗺️ 3个月突击路线图</title>
+<style>
+:root{
+  --bg:#fafafa;--card:#fff;--text:#1d1d1f;--text2:#6e6e73;--accent:#0071e3;
+  --accent2:#34c759;--warn:#ff9500;--danger:#ff3b30;--purple:#af52de;
+  --border:rgba(0,0,0,.06);--shadow:0 2px 12px rgba(0,0,0,.06);
+  --glass:rgba(255,255,255,.72);--glass-border:rgba(255,255,255,.18);
+  --radius:16px;--nav-h:56px;
+}
+[data-theme="dark"]{
+  --bg:#000;--card:#1c1c1e;--text:#f5f5f7;--text2:#86868b;
+  --border:rgba(255,255,255,.08);--shadow:0 2px 12px rgba(0,0,0,.3);
+  --glass:rgba(28,28,30,.78);--glass-border:rgba(255,255,255,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s}
+::selection{background:var(--accent);color:#fff}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);background:var(--glass);border-bottom:.5px solid var(--border);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;transition:background .3s}
+.nav-title{font-size:17px;font-weight:600;letter-spacing:-.2px}
+.nav-tabs{display:flex;gap:4px;background:rgba(128,128,128,.12);border-radius:8px;padding:2px}
+.nav-tab{padding:5px 14px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;border:none;background:none;color:var(--text2)}
+.nav-tab.active{background:var(--card);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.theme-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.theme-btn:hover{transform:scale(1.1)}
+
+/* Hero */
+.hero{padding:96px 24px 48px;text-align:center}
+.hero h1{font-family:'SF Pro Display',Georgia,'Noto Serif SC',serif;font-size:clamp(32px,6vw,56px);font-weight:700;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+.hero-sub{font-size:18px;color:var(--text2);max-width:600px;margin:0 auto 32px;line-height:1.6}
+.hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;font-size:14px;font-weight:500;border:1px solid var(--border);background:var(--card)}
+.badge-main{background:linear-gradient(135deg,#ff3b30,#ff6b6b);color:#fff;border:none}
+.badge-sub{background:linear-gradient(135deg,#ff9500,#ffb347);color:#fff;border:none}
+.badge-long{background:linear-gradient(135deg,#34c759,#5edd7a);color:#fff;border:none}
+
+/* Energy Bar */
+.energy-section{padding:0 24px 40px}
+.energy-card{max-width:800px;margin:0 auto;background:var(--card);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.energy-card h3{font-size:15px;font-weight:600;margin-bottom:20px;color:var(--text2)}
+.energy-bars{display:flex;flex-direction:column;gap:16px}
+.energy-row{display:flex;align-items:center;gap:12px}
+.energy-label{width:80px;font-size:13px;font-weight:500;text-align:right;flex-shrink:0}
+.energy-track{flex:1;height:28px;background:rgba(128,128,128,.08);border-radius:14px;overflow:hidden;display:flex;position:relative}
+.energy-fill{height:100%;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;transition:width 1s cubic-bezier(.4,0,.2,1);cursor:default;min-width:36px}
+.energy-fill.main{background:linear-gradient(90deg,#ff3b30,#ff6b6b)}
+.energy-fill.sub{background:linear-gradient(90deg,#ff9500,#ffb347)}
+.energy-fill.long{background:linear-gradient(90deg,#34c759,#5edd7a)}
+.energy-tip{font-size:12px;color:var(--text2);text-align:center;margin-top:12px}
+
+/* Month Section */
+.section{padding:0 24px 48px;display:none}
+.section.active{display:block}
+.section-header{max-width:900px;margin:0 auto 28px;display:flex;align-items:center;gap:12px}
+.section-num{font-family:'SF Pro Display',Georgia,serif;font-size:48px;font-weight:700;color:var(--accent);line-height:1}
+.section-title-wrap h2{font-size:24px;font-weight:700;letter-spacing:-.3px}
+.section-title-wrap p{font-size:14px;color:var(--text2)}
+
+/* Lane */
+.lane{max-width:900px;margin:0 auto 24px;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border)}
+.lane-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;transition:background .2s;user-select:none}
+.lane-header:hover{background:rgba(128,128,128,.04)}
+.lane-left{display:flex;align-items:center;gap:12px}
+.lane-dot{width:10px;height:10px;border-radius:50%}
+.lane-dot.main{background:#ff3b30}
+.lane-dot.sub{background:#ff9500}
+.lane-dot.long{background:#34c759}
+.lane-label{font-size:16px;font-weight:600}
+.lane-toggle{font-size:20px;color:var(--text2);transition:transform .3s}
+.lane.open .lane-toggle{transform:rotate(180deg)}
+.lane-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.lane.open .lane-body{max-height:3000px}
+
+/* Week Block */
+.week-block{padding:0 24px 20px;border-top:1px solid var(--border)}
+.week-title{font-size:14px;font-weight:600;color:var(--accent);padding:16px 0 12px}
+.day-grid{display:grid;gap:8px}
+.day-row{display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center;padding:10px 14px;border-radius:10px;background:rgba(128,128,128,.04);transition:all .2s;cursor:pointer}
+.day-row:hover{background:rgba(128,128,128,.08);transform:translateX(4px)}
+.day-row.done{opacity:.5;text-decoration:line-through}
+.day-num{font-size:13px;font-weight:600;color:var(--accent)}
+.day-task{font-size:14px}
+.day-output{font-size:12px;color:var(--text2);text-align:right;max-width:160px}
+.check-btn{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);background:none;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.check-btn.checked{background:var(--accent2);border-color:var(--accent2);color:#fff}
+
+/* Deliverables */
+.deliverables{padding:16px 24px 20px;border-top:1px solid var(--border);background:rgba(52,199,89,.04)}
+.deliverables h4{font-size:13px;font-weight:600;color:var(--accent2);margin-bottom:8px}
+.deliverable-item{display:flex;align-items:center;gap:8px;font-size:14px;padding:3px 0}
+.deliverable-item .check-btn{width:18px;height:18px;font-size:10px}
+
+/* KPI */
+.kpi-section{padding:0 24px 48px}
+.kpi-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.kpi-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
+.kpi-label{font-size:12px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.kpi-value{font-size:32px;font-weight:700;font-family:'SF Pro Display',Georgia,serif}
+.kpi-sub{font-size:12px;color:var(--text2);margin-top:4px}
+.kpi-bar{height:4px;background:rgba(128,128,128,.1);border-radius:2px;margin-top:10px;overflow:hidden}
+.kpi-fill{height:100%;border-radius:2px;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+
+/* Schedule */
+.schedule-section{padding:0 24px 48px}
+.schedule-card{max-width:600px;margin:0 auto;background:var(--card);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.schedule-card h3{font-size:17px;font-weight:600;margin-bottom:20px;text-align:center}
+.sched-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.sched-row:last-child{border:none}
+.sched-time{width:100px;font-size:13px;font-weight:500;color:var(--text2);font-variant-numeric:tabular-nums}
+.sched-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sched-task{font-size:14px;flex:1}
+.sched-tag{font-size:11px;padding:3px 8px;border-radius:100px;font-weight:500}
+
+/* Tools */
+.tools-section{padding:0 24px 48px}
+.tools-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.tool-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.tool-card h4{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.tool-item{font-size:13px;padding:4px 0;color:var(--text2);line-height:1.5}
+.tool-item strong{color:var(--text)}
+
+/* Footer */
+.outcomes{padding:48px 24px;text-align:center;border-top:1px solid var(--border)}
+.outcomes h2{font-family:'SF Pro Display',Georgia,serif;font-size:28px;font-weight:700;margin-bottom:24px}
+.outcome-list{max-width:600px;margin:0 auto;text-align:left;display:flex;flex-direction:column;gap:12px}
+.outcome-item{display:flex;align-items:center;gap:12px;font-size:16px;padding:12px 20px;background:var(--card);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--border);transition:transform .2s}
+.outcome-item:hover{transform:scale(1.02)}
+.outcome-icon{font-size:24px}
+
+/* Progress */
+.progress-float{position:fixed;bottom:24px;right:24px;background:var(--card);border-radius:16px;padding:14px 18px;box-shadow:0 4px 20px rgba(0,0,0,.12);border:1px solid var(--border);z-index:99;font-size:13px}
+.progress-float .pct{font-size:22px;font-weight:700;color:var(--accent)}
+.progress-float .label{color:var(--text2);font-size:11px}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .6s ease both}
+.fade-up-d1{animation-delay:.1s}
+.fade-up-d2{animation-delay:.2s}
+.fade-up-d3{animation-delay:.3s}
+@media(max-width:640px){
+  .nav{padding:0 12px}
+  .nav-title{font-size:14px}
+  .nav-tab{padding:4px 10px;font-size:12px}
+  .hero h1{font-size:28px}
+  .day-row{grid-template-columns:50px 1fr;gap:8px}
+  .day-output{display:none}
+  .energy-row{flex-direction:column;align-items:stretch}
+  .energy-label{text-align:left;width:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <span class="nav-title">🗺️ 3个月突击路线图</span>
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-month="1">Month 1</button>
+    <button class="nav-tab" data-month="2">Month 2</button>
+    <button class="nav-tab" data-month="3">Month 3</button>
+    <button class="nav-tab" data-month="kpi">📊 KPI</button>
+    <button class="nav-tab" data-month="tools">🧰 工具</button>
+  </div>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeBtn" title="切换深色模式">🌙</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero fade-up">
+  <h1>3个月突击路线图</h1>
+  <p class="hero-sub">MCP/A2A架构师 × AI短剧 × Vibe Coding × 垂直AI咨询<br>四线并行，3个月从零到月入5-10万</p>
+  <div class="hero-badges">
+    <span class="badge badge-main">🔴 主线 · MCP/A2A架构师</span>
+    <span class="badge badge-sub">🟡 副线 · AI短剧 + Vibe Coding</span>
+    <span class="badge badge-long">🟢 长线 · 垂直AI/咨询</span>
+  </div>
+</section>
+
+<!-- Energy Distribution -->
+<section class="energy-section fade-up fade-up-d1">
+  <div class="energy-card">
+    <h3>📐 精力分配 · 点击切换阶段</h3>
+    <div class="energy-bars" id="energyBars">
+      <div class="energy-row">
+        <span class="energy-label" id="elabel">Week 1-4</span>
+        <div class="energy-track">
+          <div class="energy-fill main" style="width:60%" data-w="60|50|40">60%</div>
+          <div class="energy-fill sub" style="width:30%" data-w="30|35|30">30%</div>
+          <div class="energy-fill long" style="width:10%" data-w="10|15|30">10%</div>
+        </div>
+      </div>
+    </div>
+    <p class="energy-tip" id="etip">前4周打基础 · 主线60% 副线30% 长线10%</p>
+    <div style="display:flex;justify-content:center;gap:8px;margin-top:12px">
+      <button class="nav-tab active" data-phase="0" onclick="setPhase(0)">Week 1-4</button>
+      <button class="nav-tab" data-phase="1" onclick="setPhase(1)">Week 5-8</button>
+      <button class="nav-tab" data-phase="2" onclick="setPhase(2)">Week 9-12</button>
+    </div>
+  </div>
+</section>
+
+<!-- Month 1 -->
+<section class="section active" id="sec-1">
+  <div class="section-header fade-up">
+    <span class="section-num">01</span>
+    <div class="section-title-wrap">
+      <h2>基础筑基</h2>
+      <p>Week 1-4 · 打基础，工具链就绪，首作品诞生</p>
+    </div>
+  </div>
+
+  <!-- M1 Main Lane -->
+  <div class="lane open fade-up fade-up-d1" id="m1-main">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot main"></span><span class="lane-label">🔴 主线 · MCP/A2A架构师</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block">
+        <div class="week-title">Week 1-2：MCP协议精通</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m1-1"><span class="day-num">D1-2</span><span class="day-task">通读MCP官方规范 (modelcontextprotocol.io)</span><span class="day-output">笔记：MCP核心概念图</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-2"><span class="day-num">D3-4</span><span class="day-task">跑通官方 TypeScript SDK 的 3个示例</span><span class="day-output">本地运行3个Server</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-3"><span class="day-num">D5-6</span><span class="day-task">用 Python SDK 开发第一个实用 MCP Server</span><span class="day-output">GitHub仓库 + README</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-4"><span class="day-num">D7</span><span class="day-task">整理MCP架构笔记，发知乎/即刻</span><span class="day-output">1篇技术博客</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="week-block">
+        <div class="week-title">Week 3-4：A2A协议精通</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m1-5"><span class="day-num">D8-9</span><span class="day-task">通读A2A规范 (github.com/google/A2A)</span><span class="day-output">Agent Card/Task/Message概念图</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-6"><span class="day-num">D10-11</span><span class="day-task">跑通官方示例，理解 JSON-RPC + SSE 通信</span><span class="day-output">2个Agent互相通信demo</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-7"><span class="day-num">D12-13</span><span class="day-task">用 LangGraph/CrewAI 构建 3-Agent 协作系统</span><span class="day-output">1个完整多Agent项目</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-8"><span class="day-num">D14</span><span class="day-task">对比MCP vs A2A vs ACP，写技术选型指南</span><span class="day-output">1篇对比博客</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="deliverables">
+        <h4>📦 M1 主线交付物</h4>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>3个MCP Server（GitHub）</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>1个多Agent系统demo</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>2篇技术博客（MCP入门 + MCP vs A2A对比）</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>MCP/A2A概念脑图</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M1 Sub Lane -->
+  <div class="lane fade-up fade-up-d2" id="m1-sub">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot sub"></span><span class="lane-label">🟡 副线 · AI短剧 + Vibe Coding</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block">
+        <div class="week-title">Week 1-2：工具注册 + Vibe Coding上手</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m1-9"><span class="day-num">D1</span><span class="day-task">安装 Cursor + 注册 Claude API</span><span class="day-output">环境就绪</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-10"><span class="day-num">D2-3</span><span class="day-task">跟做 happyaicoding.com 前3个实战案例</span><span class="day-output">3个小项目</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-11"><span class="day-num">D4-5</span><span class="day-task">用Cursor做个人作品集网站</span><span class="day-output">上线网站（Vercel部署）</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-12"><span class="day-num">D6-7</span><span class="day-task">学习 Cursor Composer/Agent 模式</span><span class="day-output">笔记</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="week-block">
+        <div class="week-title">Week 3-4：AI短剧工具链</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m1-13"><span class="day-num">D8-9</span><span class="day-task">注册全工具：豆包 + Kling/即梦 + ComfyUI</span><span class="day-output">账号就绪</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-14"><span class="day-num">D10-11</span><span class="day-task">跟做 B站「AI漫剧零基础教程」</span><span class="day-output">理解全流程</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-15"><span class="day-num">D12-13</span><span class="day-task">豆包生成短剧本 → AI分镜 → 生成图片</span><span class="day-output">1套分镜稿</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-16"><span class="day-num">D14</span><span class="day-task">组装30秒漫剧demo</span><span class="day-output">首个作品 🎬</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="deliverables">
+        <h4>📦 M1 副线交付物</h4>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>Cursor熟练使用，3个项目上线</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>AI短剧全流程跑通，1个30秒demo</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>个人作品集网站</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M1 Long Lane -->
+  <div class="lane fade-up fade-up-d3" id="m1-long">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot long"></span><span class="lane-label">🟢 长线 · 垂直AI/咨询</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block" style="padding-top:16px">
+        <p style="font-size:14px;color:var(--text2);line-height:1.8">每天30分钟 · 行业扫描</p>
+        <div class="day-grid" style="margin-top:12px">
+          <div class="day-row" data-id="m1-l1"><span class="day-num">Daily</span><span class="day-task">用AI每天读3篇行业报告，整理到Notion/飞书</span><span class="day-output">知识库积累</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m1-l2"><span class="day-num">Weekly</span><span class="day-task">关注5个垂直领域：法律/医疗/教育/金融/电商</span><span class="day-output">领域感知</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+        <p style="font-size:13px;color:var(--accent);margin-top:12px">🎯 目标：圈定1-2个最感兴趣的垂直方向</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Month 2 -->
+<section class="section" id="sec-2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div class="section-title-wrap">
+      <h2>实战出活</h2>
+      <p>Week 5-8 · 实战项目，开源输出，首单突破</p>
+    </div>
+  </div>
+
+  <div class="lane open" id="m2-main">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot main"></span><span class="lane-label">🔴 主线 · MCP/A2A架构师</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block">
+        <div class="week-title">Week 5-6：实战项目</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m2-1"><span class="day-num">D15-16</span><span class="day-task">开发「企业级MCP Server工具包」（数据库/API/文件系统）</span><span class="day-output">开源项目框架</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-2"><span class="day-num">D17-18</span><span class="day-task">开发A2A Agent：客服+工单+知识库Agent协作</span><span class="day-output">多Agent系统</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-3"><span class="day-num">D19-21</span><span class="day-task">找1个小企业/朋友公司，免费做POC部署</span><span class="day-output">首个真实场景落地 🏢</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="week-block">
+        <div class="week-title">Week 7-8：内容输出 + 开源</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m2-4"><span class="day-num">D22-23</span><span class="day-task">整理POC案例，写深度技术文章</span><span class="day-output">1篇万字实战博客</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-5"><span class="day-num">D24-25</span><span class="day-task">GitHub开源MCP Server工具包，写好README</span><span class="day-output">Star获取 ⭐</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-6"><span class="day-num">D26-28</span><span class="day-task">在即刻/知乎/V2EX发布，加入MCP社区</span><span class="day-output">建立社区存在感</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="deliverables">
+        <h4>📦 M2 主线交付物</h4>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>1个开源MCP工具包（GitHub）</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>1个多Agent企业POC</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>1篇万字实战博客</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>社区存在感建立</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lane" id="m2-sub">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot sub"></span><span class="lane-label">🟡 副线 · AI短剧 + Vibe Coding</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block">
+        <div class="week-title">Week 5-6：Vibe Coding接单准备</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m2-7"><span class="day-num">D15-16</span><span class="day-task">用Cursor快速做3个SaaS小工具</span><span class="day-output">3个产品demo</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-8"><span class="day-num">D17-18</span><span class="day-task">在电鸭/程序员客栈/即刻发布接单信息</span><span class="day-output">接单页面</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-9"><span class="day-num">D19-21</span><span class="day-task">主动联系3个潜在客户，提供免费/低价试做</span><span class="day-output">首单机会 💰</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="week-block">
+        <div class="week-title">Week 7-8：AI短剧首部完整作品</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m2-10"><span class="day-num">D22-24</span><span class="day-task">创作3分钟完整漫剧（剧本→分镜→生成→配音→剪辑）</span><span class="day-output">首部作品 🎬</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-11"><span class="day-num">D25-26</span><span class="day-task">投稿 B站/抖音/快手，收集数据</span><span class="day-output">发布+数据追踪</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-12"><span class="day-num">D27-28</span><span class="day-task">分析播放数据，迭代内容策略</span><span class="day-output">复盘报告 📊</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="deliverables">
+        <h4>📦 M2 副线交付物</h4>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>首单Vibe Coding接单（目标5000元+）</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>1部3分钟AI短剧上线</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>3个SaaS小工具demo</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lane" id="m2-long">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot long"></span><span class="lane-label">🟢 长线 · 垂直AI/咨询</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block" style="padding-top:16px">
+        <p style="font-size:14px;color:var(--text2);line-height:1.8">深度调研阶段</p>
+        <div class="day-grid" style="margin-top:12px">
+          <div class="day-row" data-id="m2-l1"><span class="day-num">M2</span><span class="day-task">访谈10个目标垂直行业从业者</span><span class="day-output">行业洞察</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m2-l2"><span class="day-num">M2</span><span class="day-task">写1份「XX行业AI应用现状报告」</span><span class="day-output">行业报告</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+        <p style="font-size:13px;color:var(--accent);margin-top:12px">🎯 确定1个垂直方向作为长期切入点</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Month 3 -->
+<section class="section" id="sec-3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div class="section-title-wrap">
+      <h2>变现加速</h2>
+      <p>Week 9-12 · 商业化验证，规模突破，变现收割</p>
+    </div>
+  </div>
+
+  <div class="lane open" id="m3-main">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot main"></span><span class="lane-label">🔴 主线 · MCP/A2A架构师</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block">
+        <div class="week-title">Week 9-10：商业化验证</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m3-1"><span class="day-num">D29-30</span><span class="day-task">包装「企业AI Agent部署」咨询服务，定价5-15万/项目</span><span class="day-output">服务手册</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-2"><span class="day-num">D31-33</span><span class="day-task">通过社区/博客获取2-3个付费咨询线索</span><span class="day-output">首个付费客户 💰</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-3"><span class="day-num">D34-35</span><span class="day-task">开发通用Agent编排模板（降本增效）</span><span class="day-output">可复用资产</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="week-block">
+        <div class="week-title">Week 11-12：影响力+收入</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m3-4"><span class="day-num">D36-38</span><span class="day-task">报名技术大会/播客做分享</span><span class="day-output">1次公开演讲 🎤</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-5"><span class="day-num">D39-40</span><span class="day-task">完成首个付费咨询项目</span><span class="day-output">首笔咨询收入 💰</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-6"><span class="day-num">D41-42</span><span class="day-task">整理3个月成果，规划Month 4-6</span><span class="day-output">季度复盘文档</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="deliverables">
+        <h4>📦 M3 主线交付物</h4>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>首个付费咨询项目（目标5万+）</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>1次技术演讲</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>Agent编排模板资产</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>月度复盘+6个月规划</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lane" id="m3-sub">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot sub"></span><span class="lane-label">🟡 副线 · AI短剧 + Vibe Coding</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block">
+        <div class="week-title">Week 9-10：规模化</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m3-7"><span class="day-num">D29-31</span><span class="day-task">Vibe Coding月交付4-6个项目</span><span class="day-output">月收入5万+ 💰</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-8"><span class="day-num">D32-33</span><span class="day-task">AI短剧：完成5分钟仿真人剧</span><span class="day-output">高质量作品 🎬</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-9"><span class="day-num">D34-35</span><span class="day-task">联系平台编辑/品牌方，了解合作政策</span><span class="day-output">合作机会</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="week-block">
+        <div class="week-title">Week 11-12：变现突破</div>
+        <div class="day-grid">
+          <div class="day-row" data-id="m3-10"><span class="day-num">D36-38</span><span class="day-task">AI短剧：尝试品牌定制单或平台签约</span><span class="day-output">首笔短剧收入</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-11"><span class="day-num">D39-40</span><span class="day-task">Vibe Coding：建立交付模板+SOP</span><span class="day-output">可复制流程</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-12"><span class="day-num">D41-42</span><span class="day-task">发布「Vibe Coding实战指南」付费内容</span><span class="day-output">被动收入种子</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+      <div class="deliverables">
+        <h4>📦 M3 副线交付物</h4>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>Vibe Coding月入5万+</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>1部5分钟仿真人剧</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>短剧首笔收入</span></div>
+        <div class="deliverable-item"><button class="check-btn" onclick="toggleCheck(this,event)">✓</button><span>Vibe Coding付费内容</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lane" id="m3-long">
+    <div class="lane-header" onclick="toggleLane(this)">
+      <div class="lane-left"><span class="lane-dot long"></span><span class="lane-label">🟢 长线 · 垂直AI/咨询</span></div>
+      <span class="lane-toggle">▼</span>
+    </div>
+    <div class="lane-body">
+      <div class="week-block" style="padding-top:16px">
+        <p style="font-size:14px;color:var(--text2);line-height:1.8">启动阶段</p>
+        <div class="day-grid" style="margin-top:12px">
+          <div class="day-row" data-id="m3-l1"><span class="day-num">M3</span><span class="day-task">完成「XX行业+AI」MVP产品原型</span><span class="day-output">产品原型</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-l2"><span class="day-num">M3</span><span class="day-task">写1份行业AI解决方案白皮书</span><span class="day-output">白皮书</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+          <div class="day-row" data-id="m3-l3"><span class="day-num">M3</span><span class="day-task">接触3-5个潜在客户验证需求</span><span class="day-output">需求验证</span><button class="check-btn" onclick="toggleCheck(this,event)">✓</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI Section -->
+<section class="section" id="sec-kpi">
+  <div class="section-header">
+    <span class="section-num">📊</span>
+    <div class="section-title-wrap">
+      <h2>关键指标 KPI</h2>
+      <p>3个月各维度目标追踪</p>
+    </div>
+  </div>
+  <div class="kpi-section">
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-label">主线收入</div><div class="kpi-value" style="color:#ff3b30">5万+</div><div class="kpi-sub">M1: 0 → M2: 0 → M3: 5万+</div><div class="kpi-bar"><div class="kpi-fill" style="width:50%;background:linear-gradient(90deg,#ff3b30,#ff6b6b)"></div></div></div>
+      <div class="kpi-card"><div class="kpi-label">副线收入</div><div class="kpi-value" style="color:#ff9500">5万+</div><div class="kpi-sub">M1: 0 → M2: 0.5万 → M3: 5万+</div><div class="kpi-bar"><div class="kpi-fill" style="width:50%;background:linear-gradient(90deg,#ff9500,#ffb347)"></div></div></div>
+      <div class="kpi-card"><div class="kpi-label">GitHub Star</div><div class="kpi-value" style="color:#0071e3">100+</div><div class="kpi-sub">M1: 10 → M2: 50 → M3: 100+</div><div class="kpi-bar"><div class="kpi-fill" style="width:100%;background:linear-gradient(90deg,#0071e3,#5ac8fa)"></div></div></div>
+      <div class="kpi-card"><div class="kpi-label">技术博客</div><div class="kpi-value" style="color:#af52de">7篇</div><div class="kpi-sub">M1: 2 → M2: 3 → M3: 2</div><div class="kpi-bar"><div class="kpi-fill" style="width:70%;background:linear-gradient(90deg,#af52de,#d4a0ff)"></div></div></div>
+      <div class="kpi-card"><div class="kpi-label">AI短剧作品</div><div class="kpi-value" style="color:#ff9500">3部</div><div class="kpi-sub">M1: demo → M2: 1部 → M3: 2部</div><div class="kpi-bar"><div class="kpi-fill" style="width:30%;background:linear-gradient(90deg,#ff9500,#ffb347)"></div></div></div>
+      <div class="kpi-card"><div class="kpi-label">Vibe Coding项目</div><div class="kpi-value" style="color:#34c759">10+</div><div class="kpi-sub">M1: 3 → M2: 5 → M3: 10+</div><div class="kpi-bar"><div class="kpi-fill" style="width:100%;background:linear-gradient(90deg,#34c759,#5edd7a)"></div></div></div>
+      <div class="kpi-card"><div class="kpi-label">社区粉丝</div><div class="kpi-value" style="color:#0071e3">1000+</div><div class="kpi-sub">M1: 100 → M2: 500 → M3: 1000+</div><div class="kpi-bar"><div class="kpi-fill" style="width:100%;background:linear-gradient(90deg,#0071e3,#5ac8fa)"></div></div></div>
+      <div class="kpi-card"><div class="kpi-label">综合月收入</div><div class="kpi-value" style="background:linear-gradient(135deg,#ff3b30,#ff9500,#34c759);-webkit-background-clip:text;-webkit-text-fill-color:transparent">5-10万</div><div class="kpi-sub">3个月后目标</div><div class="kpi-bar"><div class="kpi-fill" style="width:60%;background:linear-gradient(90deg,#ff3b30,#ff9500,#34c759)"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Daily Schedule -->
+  <div class="schedule-section">
+    <div class="schedule-card">
+      <h3>⚡ 每日时间模板</h3>
+      <div class="sched-row"><span class="sched-time">08:00-10:00</span><span class="sched-dot" style="background:#ff3b30"></span><span class="sched-task">主线学习/开发（MCP/A2A）</span><span class="sched-tag" style="background:rgba(255,59,48,.1);color:#ff3b30">主线</span></div>
+      <div class="sched-row"><span class="sched-time">10:00-12:00</span><span class="sched-dot" style="background:#ff3b30"></span><span class="sched-task">主线实战/写代码</span><span class="sched-tag" style="background:rgba(255,59,48,.1);color:#ff3b30">主线</span></div>
+      <div class="sched-row"><span class="sched-time">14:00-15:30</span><span class="sched-dot" style="background:#ff9500"></span><span class="sched-task">副线A：Vibe Coding项目</span><span class="sched-tag" style="background:rgba(255,149,0,.1);color:#ff9500">副线</span></div>
+      <div class="sched-row"><span class="sched-time">15:30-17:00</span><span class="sched-dot" style="background:#ff9500"></span><span class="sched-task">副线B：AI短剧制作</span><span class="sched-tag" style="background:rgba(255,149,0,.1);color:#ff9500">副线</span></div>
+      <div class="sched-row"><span class="sched-time">17:00-18:00</span><span class="sched-dot" style="background:#34c759"></span><span class="sched-task">长线：行业调研/内容输出</span><span class="sched-tag" style="background:rgba(52,199,89,.1);color:#34c759">长线</span></div>
+      <div class="sched-row"><span class="sched-time">20:00-21:00</span><span class="sched-dot" style="background:#af52de"></span><span class="sched-task">📝 笔记整理 + 社区互动</span><span class="sched-tag" style="background:rgba(175,82,222,.1);color:#af52de">复盘</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Tools Section -->
+<section class="section" id="sec-tools">
+  <div class="section-header">
+    <span class="section-num">🧰</span>
+    <div class="section-title-wrap">
+      <h2>工具清单</h2>
+      <p>提前准备，开箱即用</p>
+    </div>
+  </div>
+  <div class="tools-section">
+    <div class="tools-grid">
+      <div class="tool-card"><h4>🔴 主线 · MCP/A2A</h4>
+        <div class="tool-item"><strong>开发环境：</strong>Node.js 22 + Python 3.12 + VS Code</div>
+        <div class="tool-item"><strong>SDK：</strong>@modelcontextprotocol/sdk (TS) + mcp (Python)</div>
+        <div class="tool-item"><strong>框架：</strong>LangGraph / CrewAI / AutoGen</div>
+        <div class="tool-item"><strong>MCP文档：</strong>modelcontextprotocol.io</div>
+        <div class="tool-item"><strong>A2A仓库：</strong>github.com/google/A2A</div>
+        <div class="tool-item"><strong>课程：</strong>DeepLearning.AI A2A专题</div>
+      </div>
+      <div class="tool-card"><h4>🎬 副线 · AI短剧</h4>
+        <div class="tool-item"><strong>剧本：</strong>豆包 / ChatGPT / Claude</div>
+        <div class="tool-item"><strong>图像：</strong>Midjourney / ComfyUI / 即梦</div>
+        <div class="tool-item"><strong>视频：</strong>Kling / Runway / Pika</div>
+        <div class="tool-item"><strong>配音：</strong>剪映 / ElevenLabs / 火山引擎TTS</div>
+        <div class="tool-item"><strong>剪辑：</strong>剪映专业版 / DaVinci Resolve</div>
+      </div>
+      <div class="tool-card"><h4>💻 副线 · Vibe Coding</h4>
+        <div class="tool-item"><strong>IDE：</strong>Cursor Pro / Claude Code</div>
+        <div class="tool-item"><strong>部署：</strong>Vercel / Netlify / Cloudflare Pages</div>
+        <div class="tool-item"><strong>学习：</strong>happaicoding.com</div>
+        <div class="tool-item"><strong>接单：</strong>电鸭社区 / 程序员客栈 / 即刻</div>
+      </div>
+      <div class="tool-card"><h4>🟢 长线 · 垂直AI/咨询</h4>
+        <div class="tool-item"><strong>调研：</strong>Notion / 飞书多维表格</div>
+        <div class="tool-item"><strong>报告：</strong>飞书文档 / Google Slides</div>
+        <div class="tool-item"><strong>CRM：</strong>Notion CRM模板 / 飞书多维表格</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Outcomes -->
+<section class="outcomes">
+  <h2>🎯 3个月后你将拥有</h2>
+  <div class="outcome-list">
+    <div class="outcome-item"><span class="outcome-icon">💼</span><span>MCP/A2A技术专家身份（GitHub 100+ Star, 博客7篇+）</span></div>
+    <div class="outcome-item"><span class="outcome-icon">🎬</span><span>AI短剧制作人（3部作品，平台有播放数据）</span></div>
+    <div class="outcome-item"><span class="outcome-icon">💻</span><span>Vibe Coding接单能力（月交付4-6单，月入5万+）</span></div>
+    <div class="outcome-item"><span class="outcome-icon">📊</span><span>垂直行业AI认知（1份行业报告+MVP原型）</span></div>
+    <div class="outcome-item"><span class="outcome-icon">💰</span><span>综合月收入目标：5-10万</span></div>
+    <div class="outcome-item"><span class="outcome-icon">🚀</span><span>清晰的6个月→1年→3年发展路径</span></div>
+  </div>
+  <p style="margin-top:32px;font-size:13px;color:var(--text2)">
+    <a href="https://github.com/SunArthur86/5y-6m-plan" style="color:var(--accent);text-decoration:none">📂 GitHub仓库</a> ·
+    <a href="https://sunarthur86.github.io/5y-6m-plan/" style="color:var(--accent);text-decoration:none">🌐 项目主页</a>
+  </p>
+</section>
+
+<!-- Progress Float -->
+<div class="progress-float" id="progressFloat">
+  <span class="pct" id="pctNum">0%</span>
+  <span class="label">完成进度</span>
+</div>
+
+<script>
+// === State ===
+const LS_KEY = 'roadmap-v1';
+let state = JSON.parse(localStorage.getItem(LS_KEY) || '{"checked":{},"theme":"light","phase":0}');
+
+// === Theme ===
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeBtn').textContent = t === 'dark' ? '☀️' : '🌙';
+  state.theme = t;
+  save();
+}
+document.getElementById('themeBtn').onclick = () => applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+applyTheme(state.theme);
+
+// === Tabs ===
+const tabs = document.querySelectorAll('#navTabs .nav-tab');
+const sections = { '1': 'sec-1', '2': 'sec-2', '3': 'sec-3', 'kpi': 'sec-kpi', 'tools': 'sec-tools' };
+
+function switchTab(key) {
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.month === key));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById(sections[key]);
+  if (sec) sec.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.month)));
+
+// === Lane Toggle ===
+function toggleLane(header) {
+  header.closest('.lane').classList.toggle('open');
+}
+
+// === Energy Phase ===
+function setPhase(p) {
+  state.phase = p;
+  const fills = document.querySelectorAll('.energy-fill');
+  const labels = ['Week 1-4', 'Week 5-8', 'Week 9-12'];
+  const tips = [
+    '前4周打基础 · 主线60% 副线30% 长线10%',
+    '中间4周实战出活 · 主线50% 副线35% 长线15%',
+    '后4周变现加速 · 主线40% 副线30% 长线30%'
+  ];
+  fills.forEach(f => {
+    const ws = f.dataset.w.split('|');
+    const w = ws[p];
+    f.style.width = w + '%';
+    f.textContent = w + '%';
+  });
+  document.getElementById('elabel').textContent = labels[p];
+  document.getElementById('etip').textContent = tips[p];
+  document.querySelectorAll('[data-phase]').forEach(b => b.classList.toggle('active', parseInt(b.dataset.phase) === p));
+  save();
+}
+setPhase(state.phase);
+
+// === Check Toggle ===
+function toggleCheck(btn, e) {
+  e.stopPropagation();
+  btn.classList.toggle('checked');
+  const row = btn.closest('.day-row') || btn.closest('.deliverable-item');
+  if (row) row.classList.toggle('done', btn.classList.contains('checked'));
+  // Save state
+  const allBtns = document.querySelectorAll('.check-btn');
+  const checked = {};
+  allBtns.forEach(b => {
+    const row2 = b.closest('.day-row');
+    if (row2 && b.classList.contains('checked')) checked[row2.dataset.id || Math.random()] = true;
+    const item = b.closest('.deliverable-item');
+    if (item && b.classList.contains('checked')) {
+      const text = item.querySelector('span').textContent;
+      checked['dl-' + text.slice(0,10)] = true;
+    }
+  });
+  state.checked = checked;
+  save();
+  updateProgress();
+}
+
+function restoreChecks() {
+  const allRows = document.querySelectorAll('.day-row');
+  allRows.forEach(row => {
+    const id = row.dataset.id;
+    if (id && state.checked[id]) {
+      const btn = row.querySelector('.check-btn');
+      if (btn) { btn.classList.add('checked'); row.classList.add('done'); }
+    }
+  });
+}
+restoreChecks();
+
+// === Progress ===
+function updateProgress() {
+  const total = document.querySelectorAll('.day-row .check-btn').length;
+  const done = document.querySelectorAll('.day-row .check-btn.checked').length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('pctNum').textContent = pct + '%';
+}
+updateProgress();
+
+// === Save ===
+function save() { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+// === Scroll animation ===
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)'; }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => {
+  el.style.opacity = 0; el.style.transform = 'translateY(20px)'; el.style.transition = 'all .6s ease';
+  observer.observe(el);
+});
+// Immediately show hero
+document.querySelectorAll('.hero .fade-up, .hero.fade-up').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
+</script>
+</body>
+</html>
