@@ -1,0 +1,16 @@
+{
+  "name": "5年600万年薪计划",
+  "short_name": "600万计划",
+  "description": "31条路径 × 3个月突击路线图",
+  "start_url": "./roadmap.html",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#0071e3",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text y=\".9em\" font-size=\"90\">🗺️</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
